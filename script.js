@@ -1,3 +1,5 @@
+let computerScore = 0;
+let playerScore = 0; 
 //Randomly returns a value between rock, paper and scissors for the computer
 function getComputerChoice(){
     const computerChoice = Math.floor(Math.random() * 1000)
@@ -14,7 +16,7 @@ function getComputerChoice(){
 //and returns the one that a message for the one that won.
 function playRound(playerSelection, computerSelection){
     playerSelection = playerSelection.toLowerCase();
-    computerSelection = getComputerChoice().toLowerCase();
+    computerSelection = getComputerChoice().toLowerCase();   
     if(playerSelection === computerSelection){
         return "It's a tie"
     } else if (
@@ -22,13 +24,32 @@ function playRound(playerSelection, computerSelection){
         (playerSelection == "paper" && computerSelection == "scissors") ||
         (playerSelection == "scissors" && computerSelection == "rock")
     ){
-        return "You lose this round!";
+        return computerScore++;
     } else {
-        return "You win this round!";
+        return playerScore++;
     }
 }
 
-//For testing to see if everything works
-const playerSelection = prompt("Rock, paper or scissors?", "rock");
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+
+//Compares how many points the player has to the computer and returns the result of the game
+function game(){
+    for (let i = 0; i < 5; i++){
+        const playerSelection = prompt("Rock, paper or scissors?", "rock");
+        const computerSelection = getComputerChoice().toLowerCase();
+        playRound(playerSelection, computerSelection);
+    }
+    if (playerScore > computerScore){
+        return "You won the game!";
+    } else if (playerScore < computerScore){
+        return "You lost the game!";
+    } else {
+        return "You tied!";
+    }
+}
+
+//Displays game result in the console
+console.log(game());
+console.log(`Your score is ${playerScore}`);
+console.log(`Computer's score is ${computerScore}`);
+
+
